@@ -1,0 +1,38 @@
+server_url: https://10.11.10.99:443
+token: token
+os:
+  write_files:
+  - encoding: ""
+    content: test content
+    owner: root
+    path: /etc/test.txt
+    permissions: '0755'
+  hostname: harvester
+  modules:
+    - kvm
+    - nvme
+  dns_nameservers:
+    - 114.114.114.114
+  ntp_servers:
+    - 0.suse.pool.ntp.org
+  password: Gientech2022!
+install:
+  mode: create
+  networks:
+    harvester-mgmt:
+      interfaces:
+      - name: ens1f0
+      method: static
+      ip: 10.11.10.11
+      subnet_mask: 255.255.255.0
+      gateway: 10.11.10.1
+      bond_options:
+        mode: balance-tlb
+        miimon: 100
+  harvester-vlan:  
+      interfaces:
+      - name: ens1f1
+      method: none
+      bond_options:
+        mode: balance-tlb
+        miimon: 100
